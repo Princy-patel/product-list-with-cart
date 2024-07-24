@@ -6,12 +6,22 @@ function Cart() {
     <div className="flex-[30%] bg-white p-5 rounded-md">
       <h1 className="text-[#8f4533] font-bold text-3xl mb-4">Your Cart (0)</h1>
       <p>Classic Tiramisu</p>
-      <div className="[&>*]:px-2">
-        <span className="text-[#8f4533] font-bold">1x</span>
-        <span>@ $5.50</span>
-        <span>$5.50</span>
-        <hr />
+      <div className="flex justify-between items-center">
+        <div className="[&>*]:px-2 mb-2">
+          <span className="text-[#8f4533] font-bold">1x</span>
+          <span>@ $5.50</span>
+          <span>$5.50</span>
+        </div>
+
+        <div>
+          <img
+            src="/images/icon-remove-item.svg"
+            alt="remove-icon"
+            className="border-2 border-black rounded-full p-1 cursor-pointer text-black"
+          />
+        </div>
       </div>
+      <hr />
 
       <div className="flex justify-between items-center my-5">
         <span>Order Total</span>
