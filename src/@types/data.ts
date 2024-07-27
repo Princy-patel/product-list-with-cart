@@ -1,4 +1,5 @@
 export interface IData {
+  id: number;
   image: {
     thumbnail?: string;
     mobile?: string;
@@ -10,6 +11,6 @@ export interface IData {
   price: number;
 }
 
-export interface IMenuListProps{
-    data: IData
+export interface IMenuListProps {
+  data: IData;
 }

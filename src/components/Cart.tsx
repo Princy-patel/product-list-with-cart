@@ -5,7 +5,7 @@ function Cart() {
   return (
     <div className="flex-[30%] bg-white p-5 rounded-md">
       <h1 className="text-[#8f4533] font-bold text-3xl mb-4">Your Cart (0)</h1>
-      <p>Classic Tiramisu</p>
+      <p className="m-2">Classic Tiramisu</p>
       <div className="flex justify-between items-center">
         <div className="[&>*]:px-2 mb-2">
           <span className="text-[#8f4533] font-bold">1x</span>
@@ -17,7 +17,7 @@ function Cart() {
           <img
             src="/images/icon-remove-item.svg"
             alt="remove-icon"
-            className="border-2 border-black rounded-full p-1 cursor-pointer text-black"
+            className="border border-[#8f4533] rounded-full p-1 cursor-pointer text-black hover:border-black"
           />
         </div>
       </div>

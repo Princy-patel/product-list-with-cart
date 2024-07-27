@@ -3,7 +3,9 @@ import { IMenuListProps } from "../@types/data";
 import Button from "../common/Button";
 
 const MenuList: React.FC<IMenuListProps> = ({ data }) => {
-  const addToCart = function () {};
+  const addToCart = function () {
+    console.log(data);
+  };
   return (
     <div className="p-2 text-left">
       <img
