@@ -1,11 +1,16 @@
 import React from "react";
 import { IMenuListProps } from "../@types/data";
 import Button from "../common/Button";
+import { useDispatch } from "react-redux";
+import { addToCarts } from "../slices/productSlice";
 
 const MenuList: React.FC<IMenuListProps> = ({ data }) => {
+  const dispatch = useDispatch();
+
   const addToCart = function () {
-    console.log(data);
+    dispatch(addToCarts(data));
   };
+
   return (
     <div className="p-2 text-left">
       <img

@@ -1,6 +1,10 @@
+import { useSelector } from "react-redux";
 import Button from "../common/Button";
+import { RootState } from "../store/store";
 
 function Cart() {
+  const cartSelector = useSelector((state : RootState) => state.products.cartProducts);
+
   const confirmOrder = function () {};
   return (
     <div className="flex-[30%] bg-white p-5 rounded-md">
