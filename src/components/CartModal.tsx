@@ -6,7 +6,12 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { makeCartEmpty } from "../slices/productSlice";
 
-function CartModal({ modal, setModal }) {
+interface CartModalProps {
+  modal: boolean;
+  setModal: (open: boolean) => void;
+}
+
+function CartModal({ modal, setModal }: CartModalProps) {
   const [totalCartPrice, setTotalCartPrice] = useState(0);
 
   const cartSelector = useSelector(
