@@ -16,10 +16,18 @@ export const counterSlice = createSlice({
     addToCarts: (state, action: PayloadAction<IData>) => {
       state.cartProducts.push(action.payload);
     },
+
+    removeItemsFromCart: (state, action: PayloadAction<number>) => {
+      const filterItems = state.cartProducts.filter(
+        (item) => item.id !== action.payload
+      );
+
+      state.cartProducts = filterItems;
+    },
   },
 });
 
 // Action creator for addToCart
-export const { addToCarts } = counterSlice.actions;
+export const { addToCarts, removeItemsFromCart } = counterSlice.actions;
 
 export default counterSlice.reducer;

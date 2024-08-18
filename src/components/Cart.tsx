@@ -1,7 +1,8 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../common/Button";
 import { RootState } from "../store/store";
 import { useEffect, useState } from "react";
+import { removeItemsFromCart } from "../slices/productSlice";
 
 function Cart() {
   const [totalCartPrice, setTotalCartPrice] = useState(0);
@@ -10,12 +11,19 @@ function Cart() {
     (state: RootState) => state.products.cartProducts
   );
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const totalPrice = cartSelector.reduce((acc, curr) => acc + curr.price, 0);
     setTotalCartPrice(totalPrice);
   }, [cartSelector]);
 
   const confirmOrder = function () {};
+
+  const removeItem = function (id: number) {
+    dispatch(removeItemsFromCart(id))
+  };
+
   return (
     <div className="sticky top-5 flex-[30%] bg-white p-5 rounded-md h-[50%]">
       <h1 className="text-[#8f4533] font-bold text-3xl mb-4">Your Cart (0)</h1>
@@ -45,6 +53,7 @@ function Cart() {
                       src="/images/icon-remove-item.svg"
                       alt="remove-icon"
                       className="border border-[#8f4533] rounded-full p-1 cursor-pointer text-black hover:border-black"
+                      onClick={removeItem.bind(null, item.id)}
                     />
                   </div>
                 </div>
