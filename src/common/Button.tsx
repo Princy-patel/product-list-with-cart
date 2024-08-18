@@ -1,10 +1,22 @@
 import React from "react";
 
-function Button({ children, className, onClick }) {
+interface ButtonProps {
+  children: React.ReactNode;
+  className?: string;
+  onClick?: () => void;
+  type?: "button" | "submit" | "reset";
+}
+
+function Button({
+  children,
+  className = "",
+  onClick,
+  type = "button",
+}: ButtonProps) {
   return (
-    <div className={`${className}`} onClick={onClick}>
+    <button className={className} onClick={onClick} type={type}>
       {children}
-    </div>
+    </button>
   );
 }
 
