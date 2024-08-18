@@ -3,9 +3,11 @@ import Button from "../common/Button";
 import { RootState } from "../store/store";
 import { useEffect, useState } from "react";
 import { removeItemsFromCart } from "../slices/productSlice";
+import CartModal from "./CartModal";
 
 function Cart() {
   const [totalCartPrice, setTotalCartPrice] = useState(0);
+  const [modal, setModal] = useState(false);
 
   const cartSelector = useSelector(
     (state: RootState) => state.products.cartProducts
@@ -18,10 +20,12 @@ function Cart() {
     setTotalCartPrice(totalPrice);
   }, [cartSelector]);
 
-  const confirmOrder = function () {};
+  const confirmOrder = function () {
+    setModal(true);
+  };
 
   const removeItem = function (id: number) {
-    dispatch(removeItemsFromCart(id))
+    dispatch(removeItemsFromCart(id));
   };
 
   return (
@@ -80,6 +84,8 @@ function Cart() {
           </Button>
         </>
       )}
+
+      {modal && <CartModal modal={modal} setModal={setModal} />}
     </div>
   );
 }
