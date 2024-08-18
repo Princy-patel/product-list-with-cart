@@ -2,8 +2,9 @@ import { useEffect, useState } from "react";
 import "react-responsive-modal/styles.css";
 import { Modal } from "react-responsive-modal";
 import Button from "../common/Button";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
+import { makeCartEmpty } from "../slices/productSlice";
 
 function CartModal({ modal, setModal }) {
   const [totalCartPrice, setTotalCartPrice] = useState(0);
@@ -12,10 +13,17 @@ function CartModal({ modal, setModal }) {
     (state: RootState) => state.products.cartProducts
   );
 
+  const dispatch = useDispatch();
+
   useEffect(() => {
     const totalPrice = cartSelector.reduce((acc, curr) => acc + curr.price, 0);
     setTotalCartPrice(totalPrice);
   }, [cartSelector]);
+
+  const placeNewOrder = function () {
+    setModal(false);
+    dispatch(makeCartEmpty());
+  };
 
   return (
     <>
@@ -66,6 +74,7 @@ function CartModal({ modal, setModal }) {
             className={
               "bg-[#8f4533] w-full text-white py-3 rounded-full text-center cursor-pointer"
             }
+            onClick={placeNewOrder}
           >
             Start New Order
           </Button>

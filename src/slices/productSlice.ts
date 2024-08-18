@@ -24,10 +24,15 @@ export const counterSlice = createSlice({
 
       state.cartProducts = filterItems;
     },
+
+    makeCartEmpty: (state) => {
+      state.cartProducts = [];
+    },
   },
 });
 
 // Action creator for addToCart
-export const { addToCarts, removeItemsFromCart } = counterSlice.actions;
+export const { addToCarts, removeItemsFromCart, makeCartEmpty } =
+  counterSlice.actions;
 
 export default counterSlice.reducer;
