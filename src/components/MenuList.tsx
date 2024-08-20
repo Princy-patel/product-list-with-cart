@@ -20,7 +20,7 @@ const MenuList: React.FC<IMenuListProps> = ({ data }) => {
       />
       <div>
         <Button
-          className="text-[#8f4533] border-[#8f4533] border-2 py-2 cursor-pointer w-full text-center rounded-full flex items-center justify-center mt-2 bg-white"
+          className="text-[#8f4533] border-[#8f4533] border-2 py-2 cursor-pointer w-full text-center rounded-full flex items-center justify-center mt-2 bg-white hover:shadow-lg transition-shadow"
           onClick={addToCart}
         >
           <img
