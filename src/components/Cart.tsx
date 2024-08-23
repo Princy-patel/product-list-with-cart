@@ -8,6 +8,7 @@ import CartModal from "./CartModal";
 function Cart() {
   const [totalCartPrice, setTotalCartPrice] = useState(0);
   const [modal, setModal] = useState(false);
+  const [totalCartItems, setTotalCartItems] = useState(1);
 
   const cartSelector = useSelector(
     (state: RootState) => state.products.cartProducts
@@ -46,7 +47,23 @@ function Cart() {
           {cartSelector.map((item) => {
             return (
               <>
-                <p className="m-2">{item.name}</p>
+                <div className="flex">
+                  <p className="m-2">{item.name}</p>
+                  <div className="flex justify-center items-center">
+                    <Button
+                      onClick={() => setTotalCartItems(totalCartItems - 1)}
+                    >
+                      -
+                    </Button>
+                    <p>{totalCartItems}</p>
+                    <Button
+                      onClick={() => setTotalCartItems(totalCartItems - 1)}
+                    >
+                      +
+                    </Button>
+                  </div>
+                </div>
+
                 <div className="flex justify-between items-center">
                   <div className="[&>*]:px-2 mb-2">
                     <span className="text-[#8f4533] font-bold">1x</span>
