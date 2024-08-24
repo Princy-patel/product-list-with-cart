@@ -1,6 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { IDataWithQuantity } from "../@types/data";
 
+interface DecreaseQuantityPayload {
+  id: number;
+  type: string;
+}
+
 export interface CounterState {
   cartProducts: IDataWithQuantity[];
 }
@@ -17,23 +22,16 @@ export const counterSlice = createSlice({
       state.cartProducts.push(action.payload);
     },
 
-    increaseQuantity: (state, action: PayloadAction<number>) => {
+    updateQuantity: (state, action: PayloadAction<DecreaseQuantityPayload>) => {
       const itemToUpdate = state.cartProducts.find(
-        (item) => item.id === action.payload
+        (item) => item.id === action.payload.id
       );
 
       if (itemToUpdate) {
-        itemToUpdate.quantity += 1;
-      }
-    },
-
-    decreaseQuantity: (state, action: PayloadAction<number>) => {
-      const itemToUpdate = state.cartProducts.find(
-        (item) => item.id === action.payload
-      );
-
-      if (itemToUpdate) {
-        if (itemToUpdate.quantity > 1) {
+        if (action.payload.type === "increment") {
+          itemToUpdate.quantity += 1;
+        }
+        if (action.payload.type === "decrement" && itemToUpdate.quantity > 1) {
           itemToUpdate.quantity -= 1;
         }
       }
@@ -58,8 +56,7 @@ export const {
   addToCarts,
   removeItemsFromCart,
   makeCartEmpty,
-  increaseQuantity,
-  decreaseQuantity,
+  updateQuantity,
 } = counterSlice.actions;
 
 export default counterSlice.reducer;

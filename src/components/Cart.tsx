@@ -2,11 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../common/Button";
 import { RootState } from "../store/store";
 import { useEffect, useState } from "react";
-import {
-  decreaseQuantity,
-  increaseQuantity,
-  removeItemsFromCart,
-} from "../slices/productSlice";
+import { updateQuantity, removeItemsFromCart } from "../slices/productSlice";
 import CartModal from "./CartModal";
 
 function Cart() {
@@ -28,16 +24,19 @@ function Cart() {
     setModal(true);
   };
 
+  // remove items from cart
   const removeItem = function (id: number) {
     dispatch(removeItemsFromCart(id));
   };
 
+  // decrease item quantity
   const decrementItems = function (id: number) {
-    dispatch(decreaseQuantity(id));
+    dispatch(updateQuantity({ id, type: "decrement" }));
   };
 
+  // increase item quantity
   const incrementItems = function (id: number) {
-    dispatch(increaseQuantity(id));
+    dispatch(updateQuantity({ id, type: "increment" }));
   };
 
   return (
