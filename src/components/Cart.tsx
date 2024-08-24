@@ -2,13 +2,16 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../common/Button";
 import { RootState } from "../store/store";
 import { useEffect, useState } from "react";
-import { removeItemsFromCart } from "../slices/productSlice";
+import {
+  decreaseQuantity,
+  increaseQuantity,
+  removeItemsFromCart,
+} from "../slices/productSlice";
 import CartModal from "./CartModal";
 
 function Cart() {
   const [totalCartPrice, setTotalCartPrice] = useState(0);
   const [modal, setModal] = useState(false);
-  const [totalCartItems, setTotalCartItems] = useState(1);
 
   const cartSelector = useSelector(
     (state: RootState) => state.products.cartProducts
@@ -27,6 +30,14 @@ function Cart() {
 
   const removeItem = function (id: number) {
     dispatch(removeItemsFromCart(id));
+  };
+
+  const decrementItems = function (id: number) {
+    dispatch(decreaseQuantity(id));
+  };
+
+  const incrementItems = function (id: number) {
+    dispatch(increaseQuantity(id));
   };
 
   return (
@@ -50,15 +61,11 @@ function Cart() {
                 <div className="flex">
                   <p className="m-2">{item.name}</p>
                   <div className="flex justify-center items-center">
-                    <Button
-                      onClick={() => setTotalCartItems(totalCartItems - 1)}
-                    >
+                    <Button onClick={decrementItems.bind(null, item.id)}>
                       -
                     </Button>
-                    <p>{totalCartItems}</p>
-                    <Button
-                      onClick={() => setTotalCartItems(totalCartItems - 1)}
-                    >
+                    <p>{item.quantity}</p>
+                    <Button onClick={incrementItems.bind(null, item.id)}>
                       +
                     </Button>
                   </div>

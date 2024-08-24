@@ -11,6 +11,10 @@ export interface IData {
   price: number;
 }
 
+export interface IDataWithQuantity extends IData {
+  quantity: number;
+}
+
 export interface IMenuListProps {
-  data: IData;
+  data: IDataWithQuantity;
 }
