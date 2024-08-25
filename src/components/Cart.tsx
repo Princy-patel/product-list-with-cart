@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import Button from "../common/Button";
 import { RootState } from "../store/store";
-import { useEffect, useState } from "react";
-import { removeItemsFromCart } from "../slices/productSlice";
+import { Fragment, useEffect, useState } from "react";
+import { updateQuantity, removeItemsFromCart } from "../slices/productSlice";
 import CartModal from "./CartModal";
 
 function Cart() {
@@ -16,7 +16,11 @@ function Cart() {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    const totalPrice = cartSelector.reduce((acc, curr) => acc + curr.price, 0);
+    const totalPrice = cartSelector.reduce(
+      (acc, item) => acc + item.quantity * item.price,
+      0
+    );
+
     setTotalCartPrice(totalPrice);
   }, [cartSelector]);
 
@@ -24,8 +28,19 @@ function Cart() {
     setModal(true);
   };
 
+  // remove items from cart
   const removeItem = function (id: number) {
     dispatch(removeItemsFromCart(id));
+  };
+
+  // decrease item quantity
+  const decrementItems = function (id: number) {
+    dispatch(updateQuantity({ id, type: "decrement" }));
+  };
+
+  // increase item quantity
+  const incrementItems = function (id: number) {
+    dispatch(updateQuantity({ id, type: "increment" }));
   };
 
   return (
@@ -45,26 +60,46 @@ function Cart() {
         <>
           {cartSelector.map((item) => {
             return (
-              <>
-                <p className="m-2">{item.name}</p>
+              <Fragment key={item.id}>
+                <div className="flex justify-between items-center w-full">
+                  <p className="m-2 my-4">{item.name}</p>
+                  <div className="my-2 border-2 border-[#8f4533] flex leading-3 justify-center items-center space-x-4 px-3 py-1 rounded-full">
+                    <Button
+                      className="text-xl"
+                      onClick={decrementItems.bind(null, item.id)}
+                    >
+                      -
+                    </Button>
+                    <p className="text-xl font-semibold">{item.quantity}</p>
+                    <Button
+                      className="text-xl"
+                      onClick={incrementItems.bind(null, item.id)}
+                    >
+                      +
+                    </Button>
+                  </div>
+                </div>
+
                 <div className="flex justify-between items-center">
                   <div className="[&>*]:px-2 mb-2">
-                    <span className="text-[#8f4533] font-bold">1x</span>
-                    <span>@ ${item.price}</span>
+                    <span className="text-[#8f4533] font-bold">
+                      {item.quantity} x
+                    </span>
                     <span>${item.price}</span>
+                    <span>${item.price * item.quantity}</span>
                   </div>
 
                   <div>
                     <img
                       src="/images/icon-remove-item.svg"
                       alt="remove-icon"
-                      className="border border-[#8f4533] rounded-full p-1 cursor-pointer text-black hover:border-black"
+                      className="border border-[#010101] rounded-full p-1 cursor-pointer text-black hover:border-black"
                       onClick={removeItem.bind(null, item.id)}
                     />
                   </div>
                 </div>
                 <hr />
-              </>
+              </Fragment>
             );
           })}
 
