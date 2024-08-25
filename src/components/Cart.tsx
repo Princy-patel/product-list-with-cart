@@ -63,7 +63,7 @@ function Cart() {
               <Fragment key={item.id}>
                 <div className="flex justify-between items-center w-full">
                   <p className="m-2 my-4">{item.name}</p>
-                  <div className="my-2 border-2 border-[#8f4533] flex leading-3 justify-center items-center space-x-4 px-3 py-1 rounded-full">
+                  <div className="my-2 border-2 border-[#8f4533] bg-[#f6f0ef] flex leading-3 justify-center items-center space-x-4 px-3 py-1 rounded-full">
                     <Button
                       className="text-xl"
                       onClick={decrementItems.bind(null, item.id)}
