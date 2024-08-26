@@ -63,9 +63,13 @@ function Menu() {
         </form>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {filteredItems.map((dataItem: IDataWithQuantity, index: number) => (
-          <MenuList key={index} data={dataItem} />
-        ))}
+        {filteredItems.length === 0 ? (
+          <p className="col-span-full text-center">No items found</p>
+        ) : (
+          filteredItems.map((dataItem: IDataWithQuantity, index: number) => (
+            <MenuList key={index} data={dataItem} />
+          ))
+        )}
       </div>
     </div>
   );
