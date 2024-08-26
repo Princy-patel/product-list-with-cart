@@ -1,15 +1,36 @@
 import { data } from "../../data/data";
 import MenuList from "./MenuList";
 import { IDataWithQuantity } from "../@types/data";
+import { ChangeEvent, useEffect, useMemo, useState } from "react";
 
 function Menu() {
-  const dataWithQuantity: IDataWithQuantity[] = data.map((item) => ({
-    ...item,
-    quantity: 1,
-  }));
+  const [searchItem, setSearchItems] = useState<string>("");
+  const [filteredItems, setFilteredItems] = useState<IDataWithQuantity[]>([]);
+
+  const dataWithQuantity: IDataWithQuantity[] = useMemo(
+    () =>
+      data.map((item) => ({
+        ...item,
+        quantity: 1,
+      })),
+    [data]
+  );
+
+  useEffect(() => {
+    const findItem = dataWithQuantity.filter((item) =>
+      item.name.toLowerCase().includes(searchItem.toLowerCase())
+    );
+
+    setFilteredItems(findItem);
+  }, [dataWithQuantity, searchItem]);
+
+  const handleSearchItems = function (e: ChangeEvent<HTMLInputElement>) {
+    e.preventDefault();
+    setSearchItems(e.target.value);
+  };
 
   return (
-    <div className="flex flex-col px-4 sm:px-6 lg:px-8">
+    <div className="flex flex-col px-4 sm:px-6 lg:px-8 w-[70%]">
       <div className="flex justify-between items-center my-2">
         <h1 className="text-3xl font-bold sm:text-4xl">Desserts</h1>
         <form className="form relative">
@@ -37,29 +58,12 @@ function Menu() {
             placeholder="Search..."
             required
             type="text"
+            onChange={handleSearchItems}
           />
-
-          <button className="absolute end-2.5 bottom-1/2 translate-y-1/2 p-2 text-sm font-medium text-white bg-blue-700 rounded-full border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-            <svg
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-              aria-hidden="true"
-              className="w-4 h-4"
-            >
-              <path
-                d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
-                strokeWidth="2"
-                strokeLinejoin="round"
-                strokeLinecap="round"
-                stroke="currentColor"
-              ></path>
-            </svg>
-          </button>
         </form>
       </div>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-        {dataWithQuantity.map((dataItem: IDataWithQuantity, index: number) => (
+        {filteredItems.map((dataItem: IDataWithQuantity, index: number) => (
           <MenuList key={index} data={dataItem} />
         ))}
       </div>

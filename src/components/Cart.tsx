@@ -44,7 +44,7 @@ function Cart() {
   };
 
   return (
-    <div className="sticky top-5 flex-[30%] bg-white p-5 rounded-md h-[50%]">
+    <div className="sticky top-5 bg-white p-5 rounded-md w-[30%] h-[50%]">
       <h1 className="text-[#8f4533] font-bold text-3xl mb-4">
         Your Cart ({cartSelector.length})
       </h1>

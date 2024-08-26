@@ -3,7 +3,7 @@ import Cart from "./Cart";
 
 function Application() {
   return (
-    <div className="flex">
+    <div className="flex justify-between w-full">
       <Menu />
       <Cart />
     </div>
