@@ -5,9 +5,13 @@ import { Fragment, useEffect, useState } from "react";
 import { updateQuantity, removeItemsFromCart } from "../slices/productSlice";
 import CartModal from "./CartModal";
 
-function Cart() {
+interface cartProps {
+  modal: boolean;
+  setModal: (modal: boolean) => void;
+}
+
+function Cart({ modal, setModal }: cartProps) {
   const [totalCartPrice, setTotalCartPrice] = useState(0);
-  const [modal, setModal] = useState(false);
 
   const cartSelector = useSelector(
     (state: RootState) => state.products.cartProducts
